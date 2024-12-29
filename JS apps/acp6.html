@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stop Changing Numbers</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+
+        .number {
+            font-size: 3em;
+            margin: 20px 0;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #f0f0f0;
+        }
+
+        .start {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .stop {
+            background-color: #dc3545;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Stop Changing Numbers</h1>
+    <div class="number" id="number">0</div>
+    <button class="start" onclick="startChanging()">Start</button>
+    <button class="stop" onclick="stopChanging()">Stop</button>
+
+    <script>
+        let interval;
+        let isChanging = false;
+
+        function startChanging() {
+            if (!isChanging) {
+                isChanging = true;
+                interval = setInterval(() => {
+                    const randomNum = Math.floor(Math.random() * 100); // Generate random numbers from 0 to 99
+                    document.getElementById('number').innerText = randomNum;
+                }, 200); // Change number every 200ms
+            }
+        }
+
+        function stopChanging() {
+            clearInterval(interval);
+            isChanging = false;
+        }
+    </script>
+</body>
+
+</html>

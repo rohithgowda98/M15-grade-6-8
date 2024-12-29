@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Today's Calendar</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+
+        table {
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            width: 50px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+
+        .today {
+            background-color: #28a745;
+            color: white;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Today's Calendar</h1>
+    <div id="calendar"></div>
+
+    <script>
+        function generateCalendar() {
+            const calendarDiv = document.getElementById("calendar");
+            const today = new Date();
+            const currentYear = today.getFullYear();
+            const currentMonth = today.getMonth();
+            const currentDate = today.getDate();
+
+            // Days of the week
+            const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+            // Month names
+            const months = [
+                "January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"
+            ];
+
+            // Get the first and last day of the month
+            const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+            const lastDate = new Date(currentYear, currentMonth + 1, 0).getDate();
+
+            // Create table for calendar
+            let table = `<h2>${months[currentMonth]} ${currentYear}</h2>`;
+            table += "<table>";
+            table += "<tr>";
+            days.forEach(day => {
+                table += `<th>${day}</th>`;
+            });
+            table += "</tr><tr>";
+
+            // Empty cells before the 1st day of the month
+            for (let i = 0; i < firstDay; i++) {
+                table += "<td></td>";
+            }
+
+            // Fill in the days of the month
+            for (let date = 1; date <= lastDate; date++) {
+                const isToday = date === currentDate ? "today" : "";
+                table += `<td class="${isToday}">${date}</td>`;
+                if ((firstDay + date) % 7 === 0) {
+                    table += "</tr><tr>";
+                }
+            }
+
+            table += "</tr></table>";
+            calendarDiv.innerHTML = table;
+        }
+
+        // Generate the calendar on page load
+        generateCalendar();
+    </script>
+</body>
+
+</html>
